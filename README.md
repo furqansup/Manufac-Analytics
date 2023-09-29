@@ -31,7 +31,7 @@ Displays statistical measures (mean, median, mode) for Gamma.
 
 ## Screenshots
 
-![Wine Table Image](/wine%20table.png)
+![Wine Table Image](./wine-data-visualization/public/wine%20table.png)
 
 ## How to Run
 

@@ -1,0 +1,30 @@
+/* Adding some basic styles */
+
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.stats-table th,
+.stats-table td {
+  border: 1px solid #ddd;
+  padding: 15px;
+  text-align: center;
+}
+
+.stats-table th {
+  background-color: #f2f2f2;
+}
+
+.stats-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+h1,
+h3 {
+  text-align: center;
+}
+
+.table {
+  padding: 10px;
+}

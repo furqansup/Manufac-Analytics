@@ -22,7 +22,6 @@ interface FlavanoidsTableProps {
 }
 
 const FlavanoidsTable: React.FC<FlavanoidsTableProps> = ({ wineData }) => {
-    // Calculating class-wise flavanoids statistics
   const classWiseFlavanoids = calculateClassWiseStats(wineData, 'Flavanoids');
 
   return (
@@ -38,7 +37,6 @@ const FlavanoidsTable: React.FC<FlavanoidsTableProps> = ({ wineData }) => {
           </tr>
         </thead>
         <tbody>
-            {/* Table rows for Mean, Median, and Mode */}
           {['Mean', 'Median', 'Mode'].map((measure) => (
             <tr key={measure}>
               <td>Flavanoids {measure}</td>
@@ -47,29 +45,35 @@ const FlavanoidsTable: React.FC<FlavanoidsTableProps> = ({ wineData }) => {
                 let statValue = 0;
 
                 if (measure === 'Mean') {
+                  // Calculate Mean
                   statValue = values.reduce((sum, val) => sum + val, 0) / values.length;
                 } else if (measure === 'Median') {
+                  // Calculate Median
                   values.sort((a, b) => a - b);
                   const mid = Math.floor(values.length / 2);
                   statValue = values.length % 2 === 0 ? (values[mid - 1] + values[mid]) / 2 : values[mid];
                 } else if (measure === 'Mode') {
+                  // Calculate Mode
                   const valueCounts: { [key: number]: number } = {};
                   values.forEach((val) => {
                     valueCounts[val] = (valueCounts[val] || 0) + 1;
                   });
+
                   let maxCount = 0;
-                  let mode = 0;
+                  let modes: number[] = [];
                   Object.keys(valueCounts).forEach((key) => {
                     const count = valueCounts[parseInt(key, 10)];
                     if (count > maxCount) {
                       maxCount = count;
-                      mode = parseInt(key, 10);
+                      modes = [parseInt(key, 10)];
+                    } else if (count === maxCount) {
+                      modes.push(parseInt(key, 10));
                     }
                   });
-                  statValue = mode;
+                  statValue = modes.length === 1 ? modes[0] : NaN; // Consider NaN for multiple modes
                 }
 
-                return <td key={`${className}-${measure}`}>{statValue.toFixed(3)}</td>;
+                return <td key={`${className}-${measure}`}>{!isNaN(statValue) ? statValue.toFixed(3) : 'NaN'}</td>;
               })}
             </tr>
           ))}

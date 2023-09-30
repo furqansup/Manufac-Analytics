@@ -70,10 +70,14 @@ const FlavanoidsTable: React.FC<FlavanoidsTableProps> = ({ wineData }) => {
                       modes.push(parseInt(key, 10));
                     }
                   });
-                  statValue = modes.length === 1 ? modes[0] : NaN; // Consider NaN for multiple modes
+                  if (modes.length === 1) {
+                    statValue = modes[0];
+                  } else {
+                    statValue = NaN;
+                  }
                 }
 
-                return <td key={`${className}-${measure}`}>{!isNaN(statValue) ? statValue.toFixed(3) : 'NaN'}</td>;
+                return <td key={`${className}-${measure}`}>{!isNaN(statValue) ? statValue.toFixed(3) : 'Multiple Modes'}</td>;
               })}
             </tr>
           ))}
@@ -84,3 +88,4 @@ const FlavanoidsTable: React.FC<FlavanoidsTableProps> = ({ wineData }) => {
 };
 
 export default FlavanoidsTable;
+
